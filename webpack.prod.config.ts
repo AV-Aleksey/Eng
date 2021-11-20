@@ -1,16 +1,21 @@
 import path from "path";
-import { Configuration, HotModuleReplacementPlugin } from "webpack";
+import { Configuration } from "webpack";
 
-import HtmlWebpackPlugin from "html-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin";
 import ESLintPlugin from "eslint-webpack-plugin";
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
+
 
 const config: Configuration = {
-    mode: "development",
-    output: {
-        publicPath: "/",
-    },
+    mode: "production",
+    target: ['web', 'es5'],
     entry: "./src/index.tsx",
+    output: {
+        path: path.resolve(__dirname, "build"),
+        filename: "[name].[contenthash].js",
+        publicPath: "",
+    },
     module: {
         rules: [
             {
@@ -40,28 +45,33 @@ const config: Configuration = {
             }
         ]
     },
-    resolve: {
-        extensions: [".tsx", ".ts", ".js", "css"],
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                react: {
+                    test: /node_modules\/(react|react-dom)\//,
+                    name: 'react',
+                    chunks: 'initial',
+                    enforce: true,
+                }
+            }
+        }
     },
-    plugins: [
+    resolve: {
+        extensions: [".tsx", ".ts", ".js"],
+      },
+      plugins: [
         new HtmlWebpackPlugin({
-            template: "src/index.html"
+          template: "src/index.html",
         }),
-        new HotModuleReplacementPlugin(),
         new ForkTsCheckerWebpackPlugin({
-            async: false,
+          async: false,
         }),
         new ESLintPlugin({
-            extensions: ["js", "jsx", "ts", "tsx"],
-          }),
-    ],
-    devtool: "inline-source-map",
-    devServer: {
-        static: path.join(__dirname, "build"),
-        historyApiFallback: true,
-        port: 4000,
-        hot: true
-    }
+          extensions: ["js", "jsx", "ts", "tsx"],
+        }),
+        new CleanWebpackPlugin(),
+      ],
 }
 
 export default config;
