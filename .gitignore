@@ -3,3 +3,11 @@
 
 # Ada Library Information
 *.ali
+
+.docz/
+node_modules/
+.idea
+dist/
+docz-dist/
+.DS_Store
+dist
