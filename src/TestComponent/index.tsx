@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import css from './styles.module.css';
 
-export const TestComponent = () => {
+export const TestComponent = (): ReactElement => {
     const [state, setState] = useState(0)
 
     return (

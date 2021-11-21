@@ -1,15 +1,15 @@
-import path from "path";
 import { Configuration, HotModuleReplacementPlugin } from "webpack";
 
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import ESLintPlugin from "eslint-webpack-plugin";
 
-const config: Configuration = {
-    mode: "development",
-    output: {
-        publicPath: "/",
-    },
+import { prodWebpackConfig } from "./prod.config";
+import { devWebpackConfig } from "./dev.config";
+import merge from "webpack-merge";
+
+
+const commonWebpackConfig: Configuration = {
     entry: "./src/index.tsx",
     module: {
         rules: [
@@ -29,14 +29,7 @@ const config: Configuration = {
             },
             {
                 test: /\.(css)/i,
-                use: [
-                    {
-                        loader: 'style-loader',
-                    },
-                    {
-                        loader: 'css-loader',
-                    }
-                ]
+                use: ['style-loader', 'css-loader']
             }
         ]
     },
@@ -44,24 +37,17 @@ const config: Configuration = {
         extensions: [".tsx", ".ts", ".js", "css"],
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: "src/index.html"
-        }),
         new HotModuleReplacementPlugin(),
-        new ForkTsCheckerWebpackPlugin({
-            async: false,
-        }),
-        new ESLintPlugin({
-            extensions: ["js", "jsx", "ts", "tsx"],
-          }),
+        new HtmlWebpackPlugin({ template: "src/index.html" }),
+        new ForkTsCheckerWebpackPlugin({ async: false }),
+        new ESLintPlugin({ extensions: ["js", "jsx", "ts", "tsx"] }),
     ],
-    devtool: "inline-source-map",
-    devServer: {
-        static: path.join(__dirname, "build"),
-        historyApiFallback: true,
-        port: 4000,
-        hot: true
-    }
 }
 
-export default config;
+export default (env: any) => {
+    if (env.MODE === 'production') {
+        return merge(commonWebpackConfig, prodWebpackConfig)
+    } else {
+        return merge(commonWebpackConfig, devWebpackConfig)
+    }
+}

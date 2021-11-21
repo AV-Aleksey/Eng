@@ -11,3 +11,5 @@ dist/
 docz-dist/
 .DS_Store
 dist
+build/
+build
