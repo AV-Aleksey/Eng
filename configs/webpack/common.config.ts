@@ -30,7 +30,17 @@ const commonWebpackConfig: Configuration = {
             {
                 test: /\.(css)/i,
                 use: ['style-loader', 'css-loader']
-            }
+            },
+            {
+                test: /\.(png|jpg|svg|gif)$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        outputPath: 'assets',
+                        name: '[name].[ext]',
+                    }
+                }],  
+            },
         ]
     },
     resolve: {
