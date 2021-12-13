@@ -32,7 +32,7 @@ const commonWebpackConfig: Configuration = {
                 use: ['style-loader', 'css-loader']
             },
             {
-                test: /\.(png|jpg|svg|gif)$/,
+                test: /\.(png|jpg|gif)$/,
                 use: [{
                     loader: 'file-loader',
                     options: {
@@ -41,6 +41,10 @@ const commonWebpackConfig: Configuration = {
                     }
                 }],  
             },
+            {
+                test: /\.svg$/,
+                use: ['@svgr/webpack'],
+            }
         ]
     },
     resolve: {
