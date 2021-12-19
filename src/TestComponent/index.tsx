@@ -5,8 +5,7 @@ import css from './styles.module.css';
 
 
 export const TestComponent = (): ReactElement => {
-    const [state, setState] = useState(0)
-
+    const [state, setState] = useState(0);
     return (
         <div>
             <img src={YouTubePng} alt="#" />

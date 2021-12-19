@@ -1,12 +1,17 @@
 {
     "compilerOptions": {
+      //Зависимости от того какой target установлен в конфиге, TypeScript подключает тайпинги (*.d.ts-файлы)
       "lib": ["dom", "dom.iterable", "esnext"],
       "baseUrl": "./",
+      //Грапать в том числе js файлы
       "allowJs": true,
+      //Можем писать ипорт типа import React from 'react' вместо import * as React from 'react';
       "allowSyntheticDefaultImports": true,
       "skipLibCheck": true,
       "esModuleInterop": true,
+      //Компилятор будет парсить код в strict mode и добавлять “use strict” в выходные файлы.
       "strict": true,
+      //Чувствительность к регистру при импорте файлов component/Component
       "forceConsistentCasingInFileNames": true,
       "moduleResolution": "node",
       "resolveJsonModule": true,
@@ -14,6 +19,7 @@
       "noEmit": true,
       "jsx": "react"
     },
-    "include": ["src"]
+    //Какие файлы грапать (если писать src поумолчанию беруться .ts, .tsx и .d.ts в указанной дериктории)
+    "include": ["./src"]
 }
 

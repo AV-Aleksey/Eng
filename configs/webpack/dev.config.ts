@@ -1,5 +1,5 @@
 import path from "path";
-import { Configuration } from "webpack";
+import { Configuration, HotModuleReplacementPlugin } from "webpack";
 
 export const devWebpackConfig: Configuration = {
     mode: "development",
@@ -9,5 +9,8 @@ export const devWebpackConfig: Configuration = {
         historyApiFallback: true,
         port: 4000,
         hot: true,
-    }
+    },
+    plugins: [
+        new HotModuleReplacementPlugin(),
+    ],
 }

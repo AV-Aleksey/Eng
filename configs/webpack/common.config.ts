@@ -1,4 +1,4 @@
-import { Configuration, HotModuleReplacementPlugin } from "webpack";
+import { Configuration } from "webpack";
 
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
@@ -10,7 +10,7 @@ import merge from "webpack-merge";
 
 
 const commonWebpackConfig: Configuration = {
-    entry: "./src/index.tsx",
+    entry: ["./src/index.tsx"],
     module: {
         rules: [
             {
@@ -51,7 +51,6 @@ const commonWebpackConfig: Configuration = {
         extensions: [".tsx", ".ts", ".js", "css"],
     },
     plugins: [
-        new HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({ template: "src/index.html" }),
         new ForkTsCheckerWebpackPlugin({ async: false }),
         new ESLintPlugin({ extensions: ["js", "jsx", "ts", "tsx"] }),
