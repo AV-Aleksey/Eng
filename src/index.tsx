@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { TestComponent } from "./TestComponent";
+import './main.css'
+import {Main} from "./modules/main";
 
 const App = () => (
     <>
-        <h1>My React and TS App!!</h1>
-        <TestComponent />
+        <Main />
     </>
 );
 
